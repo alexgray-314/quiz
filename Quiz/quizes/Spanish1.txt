@@ -1,0 +1,4 @@
+hola:hello
+tengo:i have
+bonjour:hello
+what are you doing:nothing

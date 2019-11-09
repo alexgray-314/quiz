@@ -1,0 +1,21 @@
+altus:high
+benignus:kind
+bonus:good
+carus:dear
+ceteri:the rest
+dirus:dreadful
+durus:hard
+iratus:angry
+laetus:happy
+latus:wide
+longus:long
+magnus:big
+malus:bad
+maximus:biggest
+medius:middle
+minimus:very small
+miser:miserable
+multus:many
+novus:new
+nullus:not any
+optimus:excelent
