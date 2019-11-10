@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -28,6 +29,7 @@ public class App extends Application {
 	private static TextField input;
 	private static Button loadBtn, okBtn, helpBtn;
 	private static ComboBox<String> selector, target;
+	private static ListView<String> mistakes;
 	private Handler handler;
 	
 	public static void main(String[] args) {
@@ -94,14 +96,18 @@ public class App extends Application {
 		scoreText = new Label("Score:\n" + 0);
 		
 //		TODO add mistakes list
-//		Label mistakeText = new Label("Mistakes:");
-//		mistakeText.setId("small");
-//		
-//		VBox mistakes = new VBox(mistakeText);
-//		mistakes.getStyleClass().add("box");
-//		mistakes.setPrefHeight(Double.MAX_VALUE);
+		Label mistakeText = new Label("Mistakes:");
+		mistakeText.setId("small");
+		
+		 mistakes = new ListView<String>();
+		mistakes.getItems().addAll("hi", "hello");
+		mistakes.setPrefHeight(200);
+		
+		VBox mistakeBox = new VBox(mistakeText, mistakes);
+		mistakeBox.getStyleClass().add("box");
+		mistakeBox.setPrefHeight(200);
 
-		VBox left = new VBox(scoreText);
+		VBox left = new VBox(scoreText, mistakeBox);
 		left.setPrefWidth(100);
 		left.setMaxWidth(100);
 		left.setAlignment(Pos.TOP_LEFT);
@@ -156,12 +162,16 @@ public class App extends Application {
 		text.setText(newText);
 	}
 	
-	public static void updateScore(int score) {
-		scoreText.setText("Score:\n" + score);
+	public static void updateScore(int score, int totalScore) {
+		scoreText.setText("Score:\n" + score + " / " + totalScore);
 	}
 	
 	public static void sendHeld(String help) {
 		helpText.setText(help);
+	}
+	
+	public static void addMistake(String mistake) {
+		mistakes.getItems().add(mistake);
 	}
 	
 	public static TextField getInput() {

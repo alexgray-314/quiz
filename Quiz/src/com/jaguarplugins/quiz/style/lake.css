@@ -1,5 +1,6 @@
 .root{
 	-fx-background-color: #c2c2d6;
+	-fx-focus-color: transparent;
 }
 .menu{
 	-fx-background-color: #666699;
@@ -26,7 +27,6 @@
 	-fx-background-radius: 0 0 30 0;
 }
 .box{
-	-fx-bakcground-color: #9494b8;
 	-fx-border-width: 3;
 	-fx-border-color: #666699;
 	-fx-border-radius: 4;
@@ -40,11 +40,24 @@
 	-fx-text-fill: #29293D;
 }
 #small{
-	-fx-font-size: 8pt;
+	-fx-font-size: 10pt;
 	-fx-text-fill: #29293D;
 }
-.richblue {
+#richblue{
     -fx-background-color: linear-gradient(#7EBCEA, #2F4B8F);
     -fx-background-radius: 3,2,2,2;
 	-fx-font-size: 12px;
+}
+.list-cell:filled:selected:focused, .list-cell:filled:selected, .list-cell:filled:hover{
+    -fx-background-color: #d1d1e0;
+	-fx-text-fill: black;
+	-fx-border-radius: 4;
+}
+.list-cell:even{
+    -fx-background-color: #a3a3c2;
+	-fx-font-size: 8pt;
+}
+.list-cell:odd{
+	-fx-background-color: #b3b3cc;
+	-fx-font-size: 8pt;
 }

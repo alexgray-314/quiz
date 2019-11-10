@@ -16,7 +16,7 @@ public class Handler {
 	
 	private ArrayList<Question> questions;
 	private int q;
-	private int score;
+	private int score, totalScore;
 	
 	private ButtonHandler buttonHandler;
 	private KeyHandler keyHandler;
@@ -47,9 +47,10 @@ public class Handler {
 				}
 				
 				try {
-					score = 0;
-					App.updateScore(score);
 					questions = QFile.loadFile("quizes/" + App.getSelector().getValue() + ".txt");
+					score = 0;
+					totalScore = questions.size();
+					App.updateScore(score, totalScore);
 					q = (int) (Math.random() * questions.size());
 					App.setText(questions.get(q).getQuestion(App.isEnglish()));
 				} catch (IndexOutOfBoundsException error) {
@@ -63,7 +64,7 @@ public class Handler {
 				try {
 					App.sendHeld(questions.get(q).getQuestion(!App.isEnglish()));
 					score -= 1;
-					App.updateScore(score);
+					App.updateScore(score, totalScore);
 				} catch (Exception ex) {
 					App.sendHeld("I can't help you");
 				}
@@ -103,7 +104,7 @@ public class Handler {
 				
 				System.out.println("Correct");
 				score++;
-				App.updateScore(score);
+				App.updateScore(score, totalScore);
 				questions.remove(q);
 				
 				q = (int) (Math.random() * questions.size());
@@ -112,6 +113,7 @@ public class Handler {
 			} else {
 				
 				System.out.println("Wrong");
+				App.addMistake(userInput);
 				
 			}
 			
