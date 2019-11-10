@@ -47,6 +47,8 @@ public class Handler {
 				}
 				
 				try {
+					App.getMistakes().getItems().clear();
+					App.getMistakes().getItems().add("");
 					questions = QFile.loadFile("quizes/" + App.getSelector().getValue() + ".txt");
 					score = 0;
 					totalScore = questions.size();
@@ -112,6 +114,9 @@ public class Handler {
 			
 			} else {
 				
+				if(App.getMistakes().getItems().get(0).equals("")) {
+					App.getMistakes().getItems().clear();
+				}
 				System.out.println("Wrong");
 				App.addMistake(userInput);
 				

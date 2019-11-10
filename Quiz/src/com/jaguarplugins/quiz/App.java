@@ -93,14 +93,15 @@ public class App extends Application {
 		right.getStyleClass().add("rightside");
 		
 //		Left Pane
-		scoreText = new Label("Score:\n" + 0);
+		scoreText = new Label("Score:\n" + " ");
 		
 //		TODO add mistakes list
 		Label mistakeText = new Label("Mistakes:");
 		mistakeText.setId("small");
 		
-		 mistakes = new ListView<String>();
-		mistakes.getItems().addAll("hi", "hello");
+		mistakes = new ListView<String>();
+		mistakes.getItems().add("");
+		mistakes.setId("blue-back");
 		mistakes.setPrefHeight(200);
 		
 		VBox mistakeBox = new VBox(mistakeText, mistakes);
@@ -192,6 +193,10 @@ public class App extends Application {
 
 	public static ComboBox<String> getSelector() {
 		return selector;
+	}
+	
+	public static ListView<String> getMistakes() {
+		return mistakes;
 	}
 
 	public static boolean isEnglish() {

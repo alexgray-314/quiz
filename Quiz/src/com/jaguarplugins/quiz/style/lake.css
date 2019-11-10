@@ -48,6 +48,9 @@
     -fx-background-radius: 3,2,2,2;
 	-fx-font-size: 12px;
 }
+#blue-back{
+	-fx-background-color: b3b3cc;
+}
 .list-cell:filled:selected:focused, .list-cell:filled:selected, .list-cell:filled:hover{
     -fx-background-color: #d1d1e0;
 	-fx-text-fill: black;
