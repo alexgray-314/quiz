@@ -31,7 +31,6 @@ public class Handler {
 //	Button Handler
 	private class ButtonHandler implements EventHandler<ActionEvent> {
 		
-		@Override
 		public void handle(ActionEvent e) {
 			
 			if(e.getSource().equals(App.getOkBtn())) {
@@ -77,7 +76,6 @@ public class Handler {
 //	KeyHandler
 	private class KeyHandler implements EventHandler<KeyEvent> {
 
-		@Override
 		public void handle(KeyEvent e) {
 			
 			if(e.getCode().equals(KeyCode.ENTER)) {		
