@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -37,8 +35,7 @@ public class QFile {
 		try {
 		
 			File file = new File(path);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
-//			InputStreamReader reader = new InputStreamReader(new Input, StandardCharsets.UTF_8);
+			BufferedReader reader = new BufferedReader(new FileReader(file));
 			
 			String line = reader.readLine();
 			while(line != null) {
