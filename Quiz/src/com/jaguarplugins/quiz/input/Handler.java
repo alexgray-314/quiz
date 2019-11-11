@@ -17,6 +17,7 @@ public class Handler {
 	private ArrayList<Question> questions;
 	private int q;
 	private int score, totalScore;
+	private StringBuilder hint = new StringBuilder();
 	
 	private ButtonHandler buttonHandler;
 	private KeyHandler keyHandler;
@@ -73,6 +74,17 @@ public class Handler {
 				
 			}
 			
+			if(e.getSource().equals(App.getHintBtn())) {
+				
+				try {
+					hint.append(questions.get(q).getQuestion(!App.isEnglish()).charAt(hint.length()));
+					App.sendHint(hint.toString());
+				} catch (IndexOutOfBoundsException e1) {
+//					Deliberately Nothing
+				}
+				
+			}
+			
 		}
 		
 	}
@@ -103,8 +115,9 @@ public class Handler {
 			String userInput = App.getInput().getText();
 			
 			if(userInput.equalsIgnoreCase(questions.get(q).getQuestion(!App.isEnglish()))) {
+//				CORRECT
 				
-				System.out.println("Correct");
+				hint.delete(0, hint.length());
 				score++;
 				App.updateScore(score, totalScore);
 				questions.remove(q);
@@ -113,11 +126,11 @@ public class Handler {
 				App.setText(questions.get(q).getQuestion(App.isEnglish()));
 			
 			} else {
+//				WRONG
 				
 				if(App.getMistakes().getItems().get(0).equals("")) {
 					App.getMistakes().getItems().clear();
 				}
-				System.out.println("Wrong");
 				App.addMistake(userInput);
 				
 			}

@@ -25,9 +25,9 @@ public class App extends Application {
 	private int width = 700, height = 400;
 	
 //	Used by handler
-	private static Label text, scoreText, helpText;
+	private static Label text, scoreText, helpText, hintText, mistakeDetail;
 	private static TextField input;
-	private static Button loadBtn, okBtn, helpBtn;
+	private static Button loadBtn, okBtn, helpBtn, hintBtn;
 	private static ComboBox<String> selector, target;
 	private static ListView<String> mistakes;
 	private Handler handler;
@@ -77,14 +77,21 @@ public class App extends Application {
 //		TODO ProgressBar
 		
 //		Right Pane
-		helpText = new Label();
-		helpText.setId("small");
-		
 		helpBtn = new Button("Help!");
 		helpBtn.getStyleClass().add("outline");
 		helpBtn.setOnAction(handler.getButtonHandler());
 		
-		VBox right = new VBox(helpBtn, helpText);
+		helpText = new Label();
+		helpText.setId("small");
+		
+		hintBtn = new Button("Hint");
+		hintBtn.getStyleClass().add("outline");
+		hintBtn.setOnAction(handler.getButtonHandler());
+		
+		hintText =new Label();
+		hintText.setId("small");
+		
+		VBox right = new VBox(helpBtn, helpText, hintBtn, hintText);
 		right.setPrefWidth(100);
 		right.setMaxWidth(100);
 		right.setAlignment(Pos.TOP_RIGHT);
@@ -95,16 +102,18 @@ public class App extends Application {
 //		Left Pane
 		scoreText = new Label("Score:\n" + " ");
 		
-//		TODO add mistakes list
 		Label mistakeText = new Label("Mistakes:");
 		mistakeText.setId("small");
 		
 		mistakes = new ListView<String>();
 		mistakes.getItems().add("");
 		mistakes.setId("blue-back");
-		mistakes.setPrefHeight(200);
+		mistakes.getStyleClass().add("highlight");
+		mistakes.setPrefHeight(150);
 		
-		VBox mistakeBox = new VBox(mistakeText, mistakes);
+		mistakeDetail = new Label(" ");
+		
+		VBox mistakeBox = new VBox(mistakeText, mistakes, mistakeDetail);
 		mistakeBox.getStyleClass().add("box");
 		mistakeBox.setPrefHeight(200);
 
@@ -171,6 +180,10 @@ public class App extends Application {
 		helpText.setText(help);
 	}
 	
+	public static void sendHint(String hint) {
+		hintText.setText(hint);
+	}
+	
 	public static void addMistake(String mistake) {
 		mistakes.getItems().add(mistake);
 	}
@@ -197,6 +210,11 @@ public class App extends Application {
 	
 	public static ListView<String> getMistakes() {
 		return mistakes;
+	}
+	
+
+	public static Button getHintBtn() {
+		return hintBtn;
 	}
 
 	public static boolean isEnglish() {
