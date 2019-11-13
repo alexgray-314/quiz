@@ -17,12 +17,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class App extends Application {
 	
 	private Scene scene;
-	private int width = 700, height = 400;
+	private int width = 800, height = 500;
 	
 //	Used by handler
 	private static Label text, scoreText, helpText, hintText, mistakeDetail;
@@ -76,22 +77,39 @@ public class App extends Application {
 		bottom.setPadding(new Insets(6));
 //		TODO ProgressBar
 		
-//		Right Pane
-		helpBtn = new Button("Help!");
+//		Right Pane		
+		helpBtn = new Button("Help");
+		helpBtn.setMinWidth(80);
 		helpBtn.getStyleClass().add("outline");
+		helpBtn.setAlignment(Pos.CENTER);
 		helpBtn.setOnAction(handler.getButtonHandler());
 		
 		helpText = new Label();
 		helpText.setId("small");
+		helpText.setAlignment(Pos.CENTER_LEFT);
+		helpText.setWrapText(true);
+		helpText.setTextAlignment(TextAlignment.JUSTIFY);
+
+		VBox helpBox = new VBox(helpBtn, helpText);
+		helpBox.getStyleClass().add("box");
+		helpBox.setAlignment(Pos.TOP_CENTER);
 		
 		hintBtn = new Button("Hint");
+		hintBtn.setMinWidth(80);
 		hintBtn.getStyleClass().add("outline");
+		hintBtn.setAlignment(Pos.CENTER);
 		hintBtn.setOnAction(handler.getButtonHandler());
 		
-		hintText =new Label();
+		hintText = new Label();
 		hintText.setId("small");
+		hintText.setAlignment(Pos.CENTER_LEFT);
+		hintText.setWrapText(true);
+		hintText.setTextAlignment(TextAlignment.JUSTIFY);
 		
-		VBox right = new VBox(helpBtn, helpText, hintBtn, hintText);
+		VBox hintBox = new VBox(hintBtn, hintText);
+		hintBox.getStyleClass().add("box");
+		
+		VBox right = new VBox(helpBox, hintBox);
 		right.setPrefWidth(100);
 		right.setMaxWidth(100);
 		right.setAlignment(Pos.TOP_RIGHT);
@@ -109,13 +127,14 @@ public class App extends Application {
 		mistakes.getItems().add("");
 		mistakes.setId("blue-back");
 		mistakes.getStyleClass().add("highlight");
-		mistakes.setPrefHeight(150);
+		mistakes.setPrefHeight(155);
+		mistakes.setOnMouseClicked(handler.getMouseHandler());
 		
 		mistakeDetail = new Label(" ");
 		
 		VBox mistakeBox = new VBox(mistakeText, mistakes, mistakeDetail);
 		mistakeBox.getStyleClass().add("box");
-		mistakeBox.setPrefHeight(200);
+		mistakeBox.setPrefHeight(220);
 
 		VBox left = new VBox(scoreText, mistakeBox);
 		left.setPrefWidth(100);

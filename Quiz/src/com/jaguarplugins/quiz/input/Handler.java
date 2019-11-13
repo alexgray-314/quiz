@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import com.jaguarplugins.quiz.App;
-import com.jaguarplugins.quiz.Question;
+import com.jaguarplugins.quiz.questionss.Question;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class Handler {
 	
@@ -21,11 +22,13 @@ public class Handler {
 	
 	private ButtonHandler buttonHandler;
 	private KeyHandler keyHandler;
+	private MouseHandler mouseHandler;
 	
 	public Handler() {
 		
 		buttonHandler = new ButtonHandler();
 		keyHandler = new KeyHandler();
+		mouseHandler = new MouseHandler();
 		
 	}
 	
@@ -50,6 +53,7 @@ public class Handler {
 				try {
 					App.getMistakes().getItems().clear();
 					App.getMistakes().getItems().add("");
+					hint.delete(0, hint.length());
 					questions = QFile.loadFile("quizes/" + App.getSelector().getValue() + ".txt");
 					score = 0;
 					totalScore = questions.size();
@@ -79,7 +83,7 @@ public class Handler {
 				try {
 					hint.append(questions.get(q).getQuestion(!App.isEnglish()).charAt(hint.length()));
 					App.sendHint(hint.toString());
-				} catch (IndexOutOfBoundsException e1) {
+				} catch (IndexOutOfBoundsException | NullPointerException e1) {
 //					Deliberately Nothing
 				}
 				
@@ -98,6 +102,18 @@ public class Handler {
 			if(e.getCode().equals(KeyCode.ENTER)) {		
 				nextQuestion();
 			}
+			
+		}
+	
+	}
+	
+//	Mouse Handler
+	private class MouseHandler implements EventHandler<MouseEvent> {
+
+		@Override
+		public void handle(MouseEvent arg0) {
+			
+//			TODO display info
 			
 		}
 	
@@ -160,6 +176,10 @@ public class Handler {
 
 	public KeyHandler getKeyHandler() {
 		return keyHandler;
+	}
+	
+	public MouseHandler getMouseHandler() {
+		return mouseHandler;
 	}
 	
 }
