@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import com.jaguarplugins.quiz.questionss.Question;
+import com.jaguarplugins.quiz.questions.Question;
 
 public class QFile {
 

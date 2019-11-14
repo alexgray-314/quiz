@@ -2,6 +2,7 @@ package com.jaguarplugins.quiz;
 
 import com.jaguarplugins.quiz.input.Handler;
 import com.jaguarplugins.quiz.input.QFile;
+import com.jaguarplugins.quiz.questions.Mistake;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -30,7 +31,7 @@ public class App extends Application {
 	private static TextField input;
 	private static Button loadBtn, okBtn, helpBtn, hintBtn;
 	private static ComboBox<String> selector, target;
-	private static ListView<String> mistakes;
+	private static ListView<Mistake> mistakes;
 	private Handler handler;
 	
 	public static void main(String[] args) {
@@ -123,8 +124,8 @@ public class App extends Application {
 		Label mistakeText = new Label("Mistakes:");
 		mistakeText.setId("small");
 		
-		mistakes = new ListView<String>();
-		mistakes.getItems().add("");
+		mistakes = new ListView<Mistake>();
+		mistakes.getItems().add(Mistake.BLANK);
 		mistakes.setId("blue-back");
 		mistakes.getStyleClass().add("highlight");
 		mistakes.setPrefHeight(155);
@@ -203,8 +204,8 @@ public class App extends Application {
 		hintText.setText(hint);
 	}
 	
-	public static void addMistake(String mistake) {
-		mistakes.getItems().add(mistake);
+	public static void addMistake(String mistake, String answer) {
+		mistakes.getItems().add(new Mistake(mistake, answer));
 	}
 	
 	public static TextField getInput() {
@@ -227,7 +228,7 @@ public class App extends Application {
 		return selector;
 	}
 	
-	public static ListView<String> getMistakes() {
+	public static ListView<Mistake> getMistakes() {
 		return mistakes;
 	}
 	

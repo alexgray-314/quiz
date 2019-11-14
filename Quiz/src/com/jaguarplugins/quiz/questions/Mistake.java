@@ -1,9 +1,11 @@
-package com.jaguarplugins.quiz.questionss;
+package com.jaguarplugins.quiz.questions;
 
-public class Mistake {
+public class Mistake{
 
+	public static Mistake BLANK = new Mistake(" ", " ");
+	
 	private String mistake, answer;
-
+	
 	public Mistake(String mistake, String answer) {
 		this.mistake = mistake;
 		this.answer = answer;

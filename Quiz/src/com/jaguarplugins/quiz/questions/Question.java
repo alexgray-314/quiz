@@ -1,4 +1,4 @@
-package com.jaguarplugins.quiz.questionss;
+package com.jaguarplugins.quiz.questions;
 
 public class Question {
 

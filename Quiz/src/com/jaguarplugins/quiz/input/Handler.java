@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import com.jaguarplugins.quiz.App;
-import com.jaguarplugins.quiz.questionss.Question;
+import com.jaguarplugins.quiz.questions.Mistake;
+import com.jaguarplugins.quiz.questions.Question;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -52,7 +53,7 @@ public class Handler {
 				
 				try {
 					App.getMistakes().getItems().clear();
-					App.getMistakes().getItems().add("");
+					App.getMistakes().getItems().add(Mistake.BLANK);
 					hint.delete(0, hint.length());
 					questions = QFile.loadFile("quizes/" + App.getSelector().getValue() + ".txt");
 					score = 0;
@@ -144,10 +145,10 @@ public class Handler {
 			} else {
 //				WRONG
 				
-				if(App.getMistakes().getItems().get(0).equals("")) {
+				if(App.getMistakes().getItems().get(0).equals(Mistake.BLANK)) {
 					App.getMistakes().getItems().clear();
 				}
-				App.addMistake(userInput);
+				App.addMistake(userInput, questions.get(q).getQuestion(!App.isEnglish()));
 				
 			}
 			
