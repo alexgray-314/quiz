@@ -5,6 +5,8 @@ import com.jaguarplugins.quiz.input.QFile;
 import com.jaguarplugins.quiz.questions.Mistake;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -33,6 +35,7 @@ public class App extends Application {
 	private static ComboBox<String> selector, target;
 	private static ListView<Mistake> mistakes;
 	private Handler handler;
+	private ChangeListener<? super Mistake> changeListener;
 	
 	public static void main(String[] args) {
 		
@@ -87,7 +90,7 @@ public class App extends Application {
 		
 		helpText = new Label();
 		helpText.setId("small");
-		helpText.setAlignment(Pos.CENTER_LEFT);
+		helpText.setAlignment(Pos.CENTER);
 		helpText.setWrapText(true);
 		helpText.setTextAlignment(TextAlignment.JUSTIFY);
 
@@ -103,7 +106,7 @@ public class App extends Application {
 		
 		hintText = new Label();
 		hintText.setId("small");
-		hintText.setAlignment(Pos.CENTER_LEFT);
+		hintText.setAlignment(Pos.CENTER);
 		hintText.setWrapText(true);
 		hintText.setTextAlignment(TextAlignment.JUSTIFY);
 		
@@ -115,7 +118,7 @@ public class App extends Application {
 		right.setMaxWidth(100);
 		right.setAlignment(Pos.TOP_RIGHT);
 		right.setPadding(new Insets(10));
-		right.setSpacing(4);
+		right.setSpacing(30);
 		right.getStyleClass().add("rightside");
 		
 //		Left Pane
@@ -129,13 +132,35 @@ public class App extends Application {
 		mistakes.setId("blue-back");
 		mistakes.getStyleClass().add("highlight");
 		mistakes.setPrefHeight(155);
-		mistakes.setOnMouseClicked(handler.getMouseHandler());
+		mistakes.getSelectionModel().getSelectedItem();
 		
-		mistakeDetail = new Label(" ");
+		mistakeDetail = new Label("Mistake:\n " + "\nAnswer:\n ");
+		mistakeDetail.setId("small");
+		mistakeDetail.setWrapText(true);
+		mistakeDetail.setTextAlignment(TextAlignment.JUSTIFY);
+		
+		changeListener = new ChangeListener<Mistake>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Mistake> observable, Mistake oldValue, Mistake newValue) {
+				
+				try {
+					
+					mistakeDetail.setText("Mistake:\n" + App.getMistakes().getSelectionModel().getSelectedItem() + "\nAnswer:\n" 
+							+ App.getMistakes().getSelectionModel().getSelectedItem().getAnswer());
+					
+				} catch (NullPointerException e) {
+					mistakeDetail.setText("Mistake:\n " + "\nAnswer:\n ");
+				}
+				
+			}
+		};
+		
+		mistakes.getSelectionModel().selectedItemProperty().addListener(changeListener);
 		
 		VBox mistakeBox = new VBox(mistakeText, mistakes, mistakeDetail);
 		mistakeBox.getStyleClass().add("box");
-		mistakeBox.setPrefHeight(220);
+//		mistakeBox.setPrefHeight(230);
 
 		VBox left = new VBox(scoreText, mistakeBox);
 		left.setPrefWidth(100);
@@ -202,6 +227,10 @@ public class App extends Application {
 	
 	public static void sendHint(String hint) {
 		hintText.setText(hint);
+	}
+	
+	public static void sendMistakeDetail(String detail) {
+		mistakeDetail.setText(detail);
 	}
 	
 	public static void addMistake(String mistake, String answer) {

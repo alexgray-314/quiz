@@ -1,6 +1,6 @@
 package com.jaguarplugins.quiz.questions;
 
-public class Mistake{
+public class Mistake {
 
 	public static Mistake BLANK = new Mistake(" ", " ");
 	
@@ -11,20 +11,14 @@ public class Mistake{
 		this.answer = answer;
 	}
 
-	public String getMistake() {
-		return mistake;
-	}
-
-	public void setMistake(String mistake) {
-		this.mistake = mistake;
-	}
-
 	public String getAnswer() {
 		return answer;
 	}
-
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	
+	@Override
+	public String toString() {
+//		This not not need to be implemented because it's already in java.lang.object
+		return this.mistake;
 	}
 	
 //	TODO add a way of using this for the ListView
