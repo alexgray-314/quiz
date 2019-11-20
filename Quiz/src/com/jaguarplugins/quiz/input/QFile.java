@@ -57,6 +57,4 @@ public class QFile {
 		return contents;
 	}
 	
-//	TODO GET ALL FILES METHOD
-	
 }

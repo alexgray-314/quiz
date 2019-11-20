@@ -8,8 +8,6 @@ import com.jaguarplugins.quiz.App;
 import com.jaguarplugins.quiz.questions.Mistake;
 import com.jaguarplugins.quiz.questions.Question;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -24,13 +22,11 @@ public class Handler {
 	
 	private ButtonHandler buttonHandler;
 	private KeyHandler keyHandler;
-	private ChangeHandler changeHandler;
 	
 	public Handler() {
 		
 		buttonHandler = new ButtonHandler();
 		keyHandler = new KeyHandler();
-		changeHandler = new ChangeHandler();
 		
 	}
 	
@@ -109,18 +105,6 @@ public class Handler {
 	
 	}
 	
-//	Change Listener
-	private class ChangeHandler implements ChangeListener<Mistake>{
-
-		@Override
-		public void changed(ObservableValue<? extends Mistake> observable, Mistake oldValue, Mistake newValue) {
-
-			App.sendMistakeDetail(App.getMistakes().getSelectionModel().getSelectedItem().getAnswer());
-
-		}
-		
-	}
-	
 	private void nextQuestion() {
 		
 		if(questions == null) {
@@ -138,6 +122,8 @@ public class Handler {
 				hint.delete(0, hint.length());
 				score++;
 				App.updateScore(score, totalScore);
+				App.sendHeld(" ");
+				App.sendHint(" ");
 				questions.remove(q);
 				
 				q = (int) (Math.random() * questions.size());
@@ -178,10 +164,6 @@ public class Handler {
 
 	public KeyHandler getKeyHandler() {
 		return keyHandler;
-	}
-	
-	public ChangeHandler getChangeHandler() {
-		return changeHandler;
 	}
 	
 }

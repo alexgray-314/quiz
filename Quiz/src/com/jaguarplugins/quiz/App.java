@@ -229,8 +229,8 @@ public class App extends Application {
 		hintText.setText(hint);
 	}
 	
-	public static void sendMistakeDetail(String detail) {
-		mistakeDetail.setText(detail);
+	public static void sendMistakeDetail(Mistake mistake) {
+		mistakeDetail.setText("Mistake:\n" + mistake.getMistake() + "\nAnswer:\n" + mistake.getAnswer());
 	}
 	
 	public static void addMistake(String mistake, String answer) {
