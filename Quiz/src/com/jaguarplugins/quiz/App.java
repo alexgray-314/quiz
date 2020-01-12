@@ -31,7 +31,7 @@ public class App extends Application {
 //	Used by handler
 	private static Label text, scoreText, helpText, hintText, mistakeDetail;
 	private static TextField input;
-	private static Button loadBtn, okBtn, helpBtn, hintBtn;
+	private static Button loadBtn, okBtn, helpBtn, hintBtn, skipBtn;
 	private static ComboBox<String> selector, target;
 	private static ListView<Mistake> mistakes;
 	private Handler handler;
@@ -113,7 +113,16 @@ public class App extends Application {
 		VBox hintBox = new VBox(hintBtn, hintText);
 		hintBox.getStyleClass().add("box");
 		
-		VBox right = new VBox(helpBox, hintBox);
+		skipBtn = new Button("Skip");
+		skipBtn.setMinWidth(80);
+		skipBtn.getStyleClass().add("outline");
+		skipBtn.setAlignment(Pos.CENTER);
+		skipBtn.setOnAction(handler.getButtonHandler());
+		
+		VBox skipBox = new VBox(skipBtn);
+		skipBox.getStyleClass().add("box");
+		
+		VBox right = new VBox(helpBox, hintBox, skipBox);
 		right.setPrefWidth(100);
 		right.setMaxWidth(100);
 		right.setAlignment(Pos.TOP_RIGHT);
@@ -252,6 +261,14 @@ public class App extends Application {
 	public static Button getHelpBtn() {
 		return helpBtn;
 	}
+	
+	public static Button getHintBtn() {
+		return hintBtn;
+	}
+	
+	public static Button getSkipButton() {
+		return skipBtn;
+	}
 
 	public static ComboBox<String> getSelector() {
 		return selector;
@@ -259,11 +276,6 @@ public class App extends Application {
 	
 	public static ListView<Mistake> getMistakes() {
 		return mistakes;
-	}
-	
-
-	public static Button getHintBtn() {
-		return hintBtn;
 	}
 
 	public static boolean isEnglish() {

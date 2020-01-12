@@ -87,6 +87,23 @@ public class Handler {
 				
 			}
 			
+			if(e.getSource().equals(App.getSkipButton())) {
+				
+				hint.delete(0, hint.length());
+				App.sendHeld(" ");
+				App.sendHint(" ");
+				
+				
+				int newQ = (int) (Math.random() * questions.size());
+				while(newQ != q) {
+					newQ = (int) (Math.random() * questions.size());
+				}
+				
+				q = newQ;
+				App.setText(questions.get(q).getQuestion(App.isEnglish()));
+				
+			}
+			
 		}
 		
 	}
