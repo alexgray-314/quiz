@@ -92,7 +92,7 @@ public class App extends Application {
 		helpText.setId("small");
 		helpText.setAlignment(Pos.CENTER);
 		helpText.setWrapText(true);
-		helpText.setTextAlignment(TextAlignment.JUSTIFY);
+		helpText.setTextAlignment(TextAlignment.CENTER);
 
 		VBox helpBox = new VBox(helpBtn, helpText);
 		helpBox.getStyleClass().add("box");
@@ -108,10 +108,11 @@ public class App extends Application {
 		hintText.setId("small");
 		hintText.setAlignment(Pos.CENTER);
 		hintText.setWrapText(true);
-		hintText.setTextAlignment(TextAlignment.JUSTIFY);
+		hintText.setTextAlignment(TextAlignment.CENTER);
 		
 		VBox hintBox = new VBox(hintBtn, hintText);
 		hintBox.getStyleClass().add("box");
+		hintBox.setAlignment(Pos.TOP_CENTER);
 		
 		skipBtn = new Button("Skip");
 		skipBtn.setMinWidth(80);

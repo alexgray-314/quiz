@@ -57,7 +57,7 @@ public class Handler {
 					totalScore = questions.size();
 					App.updateScore(score, totalScore);
 					q = (int) (Math.random() * questions.size());
-					App.setText(questions.get(q).getQuestion(App.isEnglish()));
+					App.setText(questions.get(q).getQuestion(App.isEnglish())[0]);
 				} catch (IndexOutOfBoundsException error) {
 					JOptionPane.showMessageDialog(null, App.getSelector().getValue() + ".txt " + "is empty");
 				}
@@ -67,9 +67,10 @@ public class Handler {
 			if(e.getSource().equals(App.getHelpBtn())) {
 				
 				try {
-					App.sendHeld(questions.get(q).getQuestion(!App.isEnglish()));
+					App.sendHeld(questions.get(q).getQuestion(!App.isEnglish())[0]);
 					score -= 1;
 					App.updateScore(score, totalScore);
+					
 				} catch (Exception ex) {
 					App.sendHeld("I can't help you");
 				}
@@ -79,7 +80,7 @@ public class Handler {
 			if(e.getSource().equals(App.getHintBtn())) {
 				
 				try {
-					hint.append(questions.get(q).getQuestion(!App.isEnglish()).charAt(hint.length()));
+					hint.append(questions.get(q).getQuestion(!App.isEnglish())[0].charAt(hint.length()));
 					App.sendHint(hint.toString());
 				} catch (IndexOutOfBoundsException | NullPointerException e1) {
 //					Deliberately Nothing
@@ -95,12 +96,12 @@ public class Handler {
 				
 				
 				int newQ = (int) (Math.random() * questions.size());
-				while(newQ != q) {
+				while(newQ == q) {
 					newQ = (int) (Math.random() * questions.size());
 				}
 				
 				q = newQ;
-				App.setText(questions.get(q).getQuestion(App.isEnglish()));
+				App.setText(questions.get(q).getQuestion(App.isEnglish())[0]);
 				
 			}
 			
@@ -133,7 +134,7 @@ public class Handler {
 			
 			String userInput = App.getInput().getText();
 			
-			if(userInput.equalsIgnoreCase(questions.get(q).getQuestion(!App.isEnglish()))) {
+			if(questions.get(q).anyCorrect(!App.isEnglish(), userInput)) {
 //				CORRECT
 				
 				hint.delete(0, hint.length());
@@ -144,7 +145,7 @@ public class Handler {
 				questions.remove(q);
 				
 				q = (int) (Math.random() * questions.size());
-				App.setText(questions.get(q).getQuestion(App.isEnglish()));
+				App.setText(questions.get(q).getQuestion(App.isEnglish())[0]);
 			
 			} else {
 //				WRONG
@@ -152,7 +153,7 @@ public class Handler {
 				if(App.getMistakes().getItems().get(0).equals(Mistake.BLANK)) {
 					App.getMistakes().getItems().clear();
 				}
-				App.addMistake(userInput, questions.get(q).getQuestion(!App.isEnglish()));
+				App.addMistake(userInput, questions.get(q).getQuestion(!App.isEnglish())[0]);
 				
 			}
 			
