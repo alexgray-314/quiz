@@ -135,7 +135,11 @@ public class Handler {
 			String userInput = App.getInput().getText();
 			
 			if(questions.get(q).anyCorrect(!App.isEnglish(), userInput)) {
-//				CORRECT
+        //CORRECT
+
+			String[] answers = questions.get(q).getQuestion(!App.isEnglish());
+			if(userInput.equalsIgnoreCase(answers[0]) || userInput.equalsIgnoreCase(answers[1]) || userInput.equal) {
+
 				
 				hint.delete(0, hint.length());
 				score++;

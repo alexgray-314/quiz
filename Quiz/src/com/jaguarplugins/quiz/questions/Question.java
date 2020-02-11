@@ -14,9 +14,9 @@ public class Question {
 	public String[] getQuestion(boolean english) {
 		
 		if(english) {
-			return question;
+			return questions;
 		} else {
-			return answer;
+			return answers;
 		}
 	
 	}

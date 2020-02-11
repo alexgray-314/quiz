@@ -30,7 +30,11 @@ public class QFile {
 	
 	public static ArrayList<Question> loadFile(String path) {
 		
+//		NOTE: max number of question options is 3
+		
 		ArrayList<Question> contents = new ArrayList<Question> ();
+//		TODO maybe fix
+		String[][] data = new String[1][2];
 		
 		try {
 		
@@ -38,8 +42,13 @@ public class QFile {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			
 			String line = reader.readLine();
+			String[] splitLine = new String[1];
+			
 			while(line != null) {
-				String[] data = line.split(":");
+				
+				splitLine = line.split(":");
+				data[0] = splitLine[0].split(",");
+				data[1] = splitLine[1].split(",");
 				contents.add(new Question(data[0], data[1]));
 				line = reader.readLine();
 			}
