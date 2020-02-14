@@ -156,7 +156,7 @@ public class App extends Application {
 				
 				try {
 					
-					mistakeDetail.setText("Mistake:\n" + App.getMistakes().getSelectionModel().getSelectedItem() + "\nAnswer:\n" 
+					mistakeDetail.setText("Mistake:\n" + App.getMistakes().getSelectionModel().getSelectedItem().getMistake() + "\nAnswer:\n" 
 							+ App.getMistakes().getSelectionModel().getSelectedItem().getAnswer());
 					
 				} catch (NullPointerException e) {
@@ -243,8 +243,8 @@ public class App extends Application {
 		mistakeDetail.setText("Mistake:\n" + mistake.getMistake() + "\nAnswer:\n" + mistake.getAnswer());
 	}
 	
-	public static void addMistake(String mistake, String answer) {
-		mistakes.getItems().add(new Mistake(mistake, answer));
+	public static void addMistake(String mistake, String answer, String question) {
+		mistakes.getItems().add(new Mistake(mistake, answer, question));
 	}
 	
 	public static TextField getInput() {

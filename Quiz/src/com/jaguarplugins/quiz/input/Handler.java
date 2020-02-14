@@ -75,6 +75,11 @@ public class Handler {
 					App.sendHeld("I can't help you");
 				}
 				
+				if(App.getMistakes().getItems().get(0).equals(Mistake.BLANK)) {
+					App.getMistakes().getItems().clear();
+				}
+				App.addMistake("[HELP]", questions.get(q).getQuestion(!App.isEnglish())[0], questions.get(q).getQuestion(App.isEnglish())[0]);
+				
 			}
 			
 			if(e.getSource().equals(App.getHintBtn())) {
@@ -153,7 +158,7 @@ public class Handler {
 				if(App.getMistakes().getItems().get(0).equals(Mistake.BLANK)) {
 					App.getMistakes().getItems().clear();
 				}
-				App.addMistake(userInput, questions.get(q).getQuestion(!App.isEnglish())[0]);
+				App.addMistake(userInput, questions.get(q).getQuestion(!App.isEnglish())[0], questions.get(q).getQuestion(App.isEnglish())[0]);
 				
 			}
 			
