@@ -40,9 +40,7 @@ public class App extends Application {
 
 	public static void main(String[] args) {
 
-//		VERSION 1.1
-		System.setProperty("file.encoding", "UTF-8");
-		
+//		VERSION 1.7.1		
 		launch();
 
 	}
@@ -55,7 +53,7 @@ public class App extends Application {
 //		TODO tick and cross
 
 //		Centre Grid
-		text = new Text("ι αμ γρεεκ τεχτ");
+		text = new Text();
 		text.getStyleClass().add("largelabel");
 		text.setFont(new Font("arial", 20));
 

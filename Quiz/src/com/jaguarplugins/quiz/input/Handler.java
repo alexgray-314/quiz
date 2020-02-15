@@ -47,12 +47,12 @@ public class Handler {
 				if (App.getSelector().getValue() == null) {
 					return;
 				}
-
+								
 				try {
 					App.getMistakes().getItems().clear();
 					App.getMistakes().getItems().add(Mistake.BLANK);
 					hint.delete(0, hint.length());
-					questions = QFile.loadFile("quizes/" + App.getSelector().getValue() + ".txt");
+					questions = QFile.loadFile("quizzes/" + App.getSelector().getValue() + ".txt");
 					score = 0;
 					totalScore = questions.size();
 					App.updateScore(score, totalScore);
