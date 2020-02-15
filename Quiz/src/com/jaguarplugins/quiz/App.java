@@ -20,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
@@ -29,7 +30,7 @@ public class App extends Application {
 	private int width = 800, height = 500;
 	
 //	Used by handler
-	private static Label text, scoreText, helpText, hintText, mistakeDetail;
+	private static Text text, scoreText, helpText, hintText, mistakeDetail;
 	private static TextField input;
 	private static Button loadBtn, okBtn, helpBtn, hintBtn, skipBtn;
 	private static ComboBox<String> selector, target;
@@ -52,7 +53,7 @@ public class App extends Application {
 //		TODO tick and cross
 		
 //		Centre Grid
-		text = new Label();
+		text = new Text();
 		text.getStyleClass().add("largelabel");
 		text.setFont(new Font("arial", 20));
 		
@@ -88,10 +89,9 @@ public class App extends Application {
 		helpBtn.setAlignment(Pos.CENTER);
 		helpBtn.setOnAction(handler.getButtonHandler());
 		
-		helpText = new Label();
+		helpText = new Text();
 		helpText.setId("small");
-		helpText.setAlignment(Pos.CENTER);
-		helpText.setWrapText(true);
+		helpText.setWrappingWidth(80);
 		helpText.setTextAlignment(TextAlignment.CENTER);
 
 		VBox helpBox = new VBox(helpBtn, helpText);
@@ -104,10 +104,9 @@ public class App extends Application {
 		hintBtn.setAlignment(Pos.CENTER);
 		hintBtn.setOnAction(handler.getButtonHandler());
 		
-		hintText = new Label();
+		hintText = new Text();
 		hintText.setId("small");
-		hintText.setAlignment(Pos.CENTER);
-		hintText.setWrapText(true);
+		hintText.setWrappingWidth(80);
 		hintText.setTextAlignment(TextAlignment.CENTER);
 		
 		VBox hintBox = new VBox(hintBtn, hintText);
@@ -132,7 +131,8 @@ public class App extends Application {
 		right.getStyleClass().add("rightside");
 		
 //		Left Pane
-		scoreText = new Label("Score:\n" + " ");
+		scoreText = new Text("Score:\n" + " ");
+		scoreText.setId("medtext");
 		
 		Label mistakeText = new Label("Mistakes:");
 		mistakeText.setId("small");
@@ -142,12 +142,13 @@ public class App extends Application {
 		mistakes.setId("blue-back");
 		mistakes.getStyleClass().add("highlight");
 		mistakes.setPrefHeight(155);
+		mistakes.setMaxWidth(80);
 		mistakes.getSelectionModel().getSelectedItem();
 		
-		mistakeDetail = new Label("Mistake:\n " + "\nAnswer:\n ");
+		mistakeDetail = new Text("Mistake:\n " + "\nAnswer:\n ");
 		mistakeDetail.setId("small");
-		mistakeDetail.setWrapText(true);
-		mistakeDetail.setTextAlignment(TextAlignment.JUSTIFY);
+		mistakeDetail.setWrappingWidth(80);
+		mistakeDetail.setTextAlignment(TextAlignment.LEFT);
 		
 		changeListener = new ChangeListener<Mistake>() {
 

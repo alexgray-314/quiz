@@ -43,6 +43,9 @@
 	-fx-font-size: 10pt;
 	-fx-text-fill: #29293D;
 }
+#medtext{
+	-fx-font-size: 14pt;
+}
 #richblue{
     -fx-background-color: linear-gradient(#7EBCEA, #2F4B8F);
     -fx-background-radius: 3,2,2,2;
