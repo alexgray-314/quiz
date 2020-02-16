@@ -1,14 +1,14 @@
 package com.jaguarplugins.quiz.input;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -31,11 +31,27 @@ public class QFile {
 			file.mkdir();
 			File exampleTxt = new File(path + "/example.txt");
 			
+			File readme = new File(path + "/README.txt");
+			
 			try {
-				PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(exampleTxt)), true);
-				out.println("fre1,fre2:eng1,eng2,eng3");
-				out.println("marrant,content:happy,joyful,pleased");
-				out.print("hola:hello");
+				OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(exampleTxt), StandardCharsets.UTF_8);
+				out.append("fre1,fre2:eng1,eng2,eng3\n");
+				out.append("marrant,content:happy,joyful,pleased\n");
+				out.append("hola:hello\n");
+				out.append("θεος:god");
+				out.flush();
+				out.close();
+				
+				out = new OutputStreamWriter(new FileOutputStream(readme), StandardCharsets.UTF_8);
+				out.append("To create a new quiz file, right click in the quizzes file and select New > Text Document or click 'New File' in the program.\n\n"
+						+ "Then open the new file in any text editor. Each line represents a different question.\n"
+						+ "Type all the possible ways of saying the word/phrase in the foreign language, separated by a ','.\n"
+						+ "Then type a ':' to show that you are now switching to the other language.\n"
+						+ "Finally type all the possible ways of saying the word/phrase in English, separated by a ','.\n"
+						+ "Repeat on a new line for each question.\n\n"
+						+ "DONOT surround ':' or ',' with spaces or leave any blank lines.\n\n"
+						+ "Please see example.txt for examples.\n\n"
+						+ "To run any quiz files, open the quiz.jar file and select the file you want from the drop down menu.");
 				out.flush();
 				out.close();
 			} catch (IOException e) {
@@ -50,7 +66,10 @@ public class QFile {
 
 		ArrayList<String> output = new ArrayList<String>();
 		for (String s : file.list()) {
-			output.add(s.split("\\.")[0]);
+			String newQuiz = s.split("\\.")[0];
+			if(!newQuiz.equalsIgnoreCase("README")) {
+				output.add(newQuiz);
+			}
 		}
 
 		return output;
