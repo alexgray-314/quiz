@@ -32,7 +32,7 @@ public class App extends Application {
 //	Used by handler
 	private static Text text, scoreText, helpText, hintText, mistakeDetail;
 	private static TextField input;
-	private static Button loadBtn, okBtn, helpBtn, hintBtn, skipBtn;
+	private static Button loadBtn, okBtn, helpBtn, hintBtn, skipBtn, newBtn;
 	private static ComboBox<String> selector, target;
 	private static ListView<Mistake> mistakes;
 	private Handler handler;
@@ -182,7 +182,11 @@ public class App extends Application {
 		left.setSpacing(4);
 		left.getStyleClass().add("leftside");
 
-//		Menu	
+//		Menu				
+		newBtn = new Button("New file");
+		newBtn.setOnAction(handler.getButtonHandler());
+		newBtn.getStyleClass().add("menubutton");
+		
 		Label fileText = new Label("File: ");
 
 		selector = new ComboBox<String>();
@@ -199,7 +203,7 @@ public class App extends Application {
 		loadBtn.setOnAction(handler.getButtonHandler());
 		loadBtn.getStyleClass().add("menubutton");
 
-		HBox menu = new HBox(fileText, selector, target, loadBtn);
+		HBox menu = new HBox(fileText, selector, target, loadBtn, new Label(" | "), newBtn);
 		menu.setAlignment(Pos.BOTTOM_CENTER);
 		menu.setSpacing(10);
 		menu.setPadding(new Insets(10));
@@ -271,6 +275,10 @@ public class App extends Application {
 
 	public static Button getSkipButton() {
 		return skipBtn;
+	}
+	
+	public static Button getNewButton() {
+		return newBtn;
 	}
 
 	public static ComboBox<String> getSelector() {
