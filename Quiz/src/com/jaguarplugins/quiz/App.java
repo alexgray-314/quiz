@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -38,9 +39,11 @@ public class App extends Application {
 	private Handler handler;
 	private ChangeListener<? super Mistake> changeListener;
 
+	private Stage editorStage;
+	private static TextArea area;
+	
 	public static void main(String[] args) {
 
-//		VERSION 1.7.1		
 		launch();
 
 	}
@@ -221,14 +224,32 @@ public class App extends Application {
 		scene.getStylesheets().add("com/jaguarplugins/quiz/style/lake.css");
 		scene.setOnKeyReleased(handler.getKeyHandler());
 
+		setupEditor();
+		
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("JaguarPlugins - Vocab Quiz");
 		primaryStage.setWidth(width);
 		primaryStage.setHeight(height);
 		primaryStage.show();
-
+		
 	}
 
+	private void setupEditor() {
+		
+		area = new TextArea();
+		area.setMinWidth(Double.MAX_VALUE);
+		area.setMinHeight(Double.MAX_VALUE);
+		
+		Scene editorScene = new Scene(area);
+		
+		editorStage = new Stage();
+		editorStage.setScene(editorScene);
+		editorStage.setTitle("Quiz editor");
+		editorStage.setWidth(width / 2);
+		editorStage.setHeight(height);
+		
+	}
+	
 	public static void setText(String newText) {
 		text.setText(newText);
 	}
@@ -287,6 +308,10 @@ public class App extends Application {
 
 	public static ListView<Mistake> getMistakes() {
 		return mistakes;
+	}
+	
+	public static TextArea getArea() {
+		return area;
 	}
 
 	public static boolean isEnglish() {
