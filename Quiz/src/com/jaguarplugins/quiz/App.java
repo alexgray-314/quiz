@@ -1,5 +1,6 @@
 package com.jaguarplugins.quiz;
 
+import com.jaguarplugins.quiz.input.Editor;
 import com.jaguarplugins.quiz.input.Handler;
 import com.jaguarplugins.quiz.input.QFile;
 import com.jaguarplugins.quiz.questions.Mistake;
@@ -31,7 +32,7 @@ public class App extends Application {
 	private int width = 800, height = 500;
 
 //	Used by handler
-	private static Text text, scoreText, helpText, hintText, mistakeDetail;
+	private static Text title, text, scoreText, helpText, hintText, mistakeDetail;
 	private static TextField input;
 	private static Button loadBtn, okBtn, helpBtn, hintBtn, skipBtn, newBtn;
 	private static ComboBox<String> selector, target;
@@ -39,8 +40,9 @@ public class App extends Application {
 	private Handler handler;
 	private ChangeListener<? super Mistake> changeListener;
 
-	private Stage editorStage;
+	private static Stage editorStage;
 	private static TextArea area;
+	private static Button saveBtn, cancelBtn;
 	
 	public static void main(String[] args) {
 
@@ -236,17 +238,43 @@ public class App extends Application {
 
 	private void setupEditor() {
 		
-		area = new TextArea();
-		area.setMinWidth(Double.MAX_VALUE);
-		area.setMinHeight(Double.MAX_VALUE);
+		Editor editor = new Editor();
 		
-		Scene editorScene = new Scene(area);
+		title = new Text("Quiz File - Editor");
+		title.setTextAlignment(TextAlignment.CENTER);
+		title.setId("bold-title");
+		
+		area = new TextArea();
+		area.setPadding(new Insets(2));
+		
+		saveBtn = new Button("Save and Close");
+		saveBtn.setOnAction(editor.getButtonHandler());
+		saveBtn.setPadding(new Insets(4));
+		
+		cancelBtn = new Button("Cancel");
+		cancelBtn.setOnAction(editor.getButtonHandler());
+		cancelBtn.setPadding(new Insets(4));
+		
+		HBox buttonBox = new HBox(cancelBtn, saveBtn);
+		buttonBox.setAlignment(Pos.BOTTOM_RIGHT);
+		buttonBox.setPadding(new Insets(5));
+		buttonBox.setSpacing(20);
+		
+		BorderPane pane = new BorderPane();
+		pane.setCenter(area);
+		pane.setBottom(buttonBox);
+		pane.setTop(title);
+		
+		Scene editorScene = new Scene(pane);
+		editorScene.setOnKeyReleased(editor.getKeyHandler());
+		editorScene.getStylesheets().add("com/jaguarplugins/quiz/style/edit.css");
 		
 		editorStage = new Stage();
 		editorStage.setScene(editorScene);
 		editorStage.setTitle("Quiz editor");
 		editorStage.setWidth(width / 2);
 		editorStage.setHeight(height);
+		editorStage.toFront();
 		
 	}
 	
@@ -312,6 +340,22 @@ public class App extends Application {
 	
 	public static TextArea getArea() {
 		return area;
+	}
+
+	public static Stage getEditorStage() {
+		return editorStage;
+	}
+	
+	public static Button getSaveBtn() {
+		return saveBtn;
+	}
+
+	public static Button getCancelBtn() {
+		return cancelBtn;
+	}
+
+	public static Text getEditorTitle() {
+		return title;
 	}
 
 	public static boolean isEnglish() {

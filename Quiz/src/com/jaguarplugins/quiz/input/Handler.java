@@ -1,7 +1,6 @@
 package com.jaguarplugins.quiz.input;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -25,6 +24,8 @@ public class Handler {
 	private int q;
 	private int score, totalScore;
 	private StringBuilder hint = new StringBuilder();
+	
+	private static TextInputDialog td;
 
 	private ButtonHandler buttonHandler;
 	private KeyHandler keyHandler;
@@ -118,29 +119,20 @@ public class Handler {
 			
 			if(e.getSource().equals(App.getNewButton())) {
 				
-				TextInputDialog td = new TextInputDialog("");
+				td = new TextInputDialog("");
 				td.setTitle("New File");
 				td.setContentText("File Name:");
 				td.setHeaderText("Create new file in quizzes folder");
 				Optional<String> result = td.showAndWait();
 				
-				if(!result.equals(Optional.empty()) && td.getResult().length() != 0) {
+				if(!result.equals(Optional.empty()) && td.getResult().length() > 0) {
 					
 					File file = new File("quizzes/" + td.getResult() + ".txt");
 					
 					if(!file.exists()) {
-
-						try {
-							file.createNewFile();
-							Alert a = new Alert(AlertType.INFORMATION, td.getResult() + ".txt" + " file created. Please go into quizzes file and add questions");
-							a.setTitle("New File");
-							a.setHeaderText("File created");
-							a.showAndWait();
-						} catch (IOException e1) {
-							Alert a = new Alert(AlertType.ERROR, "I/O Exception\nFile could not be created");
-							a.setTitle("New File");
-							a.showAndWait();
-						}
+	
+						App.getEditorTitle().setText(td.getResult());
+						App.getEditorStage().show();
 
 					} else {
 						Alert a = new Alert(AlertType.ERROR, "File already exists, please pick a new name or rename the existing file");
@@ -239,6 +231,10 @@ public class Handler {
 
 	public KeyHandler getKeyHandler() {
 		return keyHandler;
+	}
+
+	public static TextInputDialog getTd() {
+		return td;
 	}
 
 }
