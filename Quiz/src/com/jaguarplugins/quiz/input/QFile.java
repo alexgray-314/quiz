@@ -43,7 +43,7 @@ public class QFile {
 				out.close();
 				
 				out = new OutputStreamWriter(new FileOutputStream(readme), StandardCharsets.UTF_8);
-				out.append("To create a new quiz file, right click in the quizzes file and select New > Text Document or click 'New File' in the program.\n\n"
+				out.append("To create a new quiz file, right click in the quizzes file and select New > Text Document (PC only) or click 'New File' in the program.\n\n"
 						+ "Then open the new file in any text editor. Each line represents a different question.\n"
 						+ "Type all the possible ways of saying the word/phrase in the foreign language, separated by a ','.\n"
 						+ "Then type a ':' to show that you are now switching to the other language.\n"

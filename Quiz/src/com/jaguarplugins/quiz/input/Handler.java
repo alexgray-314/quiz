@@ -3,6 +3,7 @@ package com.jaguarplugins.quiz.input;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.swing.JOptionPane;
 
@@ -12,9 +13,7 @@ import com.jaguarplugins.quiz.questions.Question;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventTarget;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
@@ -119,29 +118,46 @@ public class Handler {
 			
 			if(e.getSource().equals(App.getNewButton())) {
 				
-				TextInputDialog td = new TextInputDialog("File Name");
+				TextInputDialog td = new TextInputDialog("");
+				td.setTitle("New File");
+				td.setContentText("File Name:");
 				td.setHeaderText("Create new file in quizzes folder");
-				td.showAndWait();
+				Optional<String> result = td.showAndWait();
 				
-//				TODO If ok clicked
-				
-				File file = new File("quizzes/" + td.getEditor().getText() + ".txt");
+				if(!result.equals(Optional.empty()) && td.getResult().length() != 0) {
+					
+					File file = new File("quizzes/" + td.getResult() + ".txt");
+					
+					if(!file.exists()) {
 
-				if(!file.exists()) {
+						try {
+							file.createNewFile();
+							Alert a = new Alert(AlertType.INFORMATION, td.getResult() + ".txt" + " file created. Please go into quizzes file and add questions");
+							a.setTitle("New File");
+							a.setHeaderText("File created");
+							a.showAndWait();
+						} catch (IOException e1) {
+							Alert a = new Alert(AlertType.ERROR, "I/O Exception\nFile could not be created");
+							a.setTitle("New File");
+							a.showAndWait();
+						}
 
-					try {
-						file.createNewFile();
-						Alert a = new Alert(AlertType.INFORMATION, "File created. Please go into quizzes file and add questions");
-						a.showAndWait();
-					} catch (IOException e1) {
-						Alert a = new Alert(AlertType.ERROR, "I/O Exception\nFile could not be created");
+					} else {
+						Alert a = new Alert(AlertType.ERROR, "File already exists, please pick a new name or rename the existing file");
+						a.setTitle("New File");
 						a.showAndWait();
 					}
-
+					
 				} else {
-					Alert a = new Alert(AlertType.ERROR, "File already exists, please pick a new name or rename the existing file");
+					
+					Alert a = new Alert(AlertType.WARNING, "File creation cancelled");
+					a.setTitle("New File");
 					a.showAndWait();
+					
 				}
+				
+
+				
 				
 			}
 
