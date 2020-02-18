@@ -131,7 +131,7 @@ public class Handler {
 					
 					if(!file.exists()) {
 	
-						App.getEditorTitle().setText(td.getResult());
+						App.getEditorTitle().setText(td.getResult() + ".txt");
 						App.getEditorStage().show();
 
 					} else {

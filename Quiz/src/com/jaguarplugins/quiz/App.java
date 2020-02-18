@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -43,6 +44,8 @@ public class App extends Application {
 	private static Stage editorStage;
 	private static TextArea area;
 	private static Button saveBtn, cancelBtn;
+	
+	private Image image = new Image("com/jaguarplugins/quiz/style/icon.jpg");
 	
 	public static void main(String[] args) {
 
@@ -228,6 +231,7 @@ public class App extends Application {
 
 		setupEditor();
 		
+		primaryStage.getIcons().add(image);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("JaguarPlugins - Vocab Quiz");
 		primaryStage.setWidth(width);
@@ -270,6 +274,7 @@ public class App extends Application {
 		editorScene.getStylesheets().add("com/jaguarplugins/quiz/style/edit.css");
 		
 		editorStage = new Stage();
+		editorStage.getIcons().add(image);
 		editorStage.setScene(editorScene);
 		editorStage.setTitle("Quiz editor");
 		editorStage.setWidth(width / 2);
@@ -357,7 +362,7 @@ public class App extends Application {
 	public static Text getEditorTitle() {
 		return title;
 	}
-
+	
 	public static boolean isEnglish() {
 
 		if (target.getValue() == "Eng - ?") {
