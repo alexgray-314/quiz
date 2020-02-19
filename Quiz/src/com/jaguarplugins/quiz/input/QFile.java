@@ -8,10 +8,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
+import javax.swing.JFileChooser;
 
 import com.jaguarplugins.quiz.questions.Question;
 
@@ -98,14 +99,36 @@ public class QFile {
 			reader.close();
 
 		} catch (FileNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "File could not be found");
+			Alert a = new Alert(AlertType.ERROR, "File could not be found");
+			a.showAndWait();
+			return null;
+		} catch (UnsupportedEncodingException e) {
+			Alert a = new Alert(AlertType.ERROR, "Please change file encoding type to UTF-8 and try again");
+			a.showAndWait();
 			return null;
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "I/O Exception");
+			Alert a = new Alert(AlertType.ERROR, "I/O exception");
+			a.showAndWait();
 			return null;
 		}
 
 		return contents;
 	}
 
+	public static File getEditFile() {
+		
+		File startDir = new File("quizzes");
+		
+		JFileChooser fc = new JFileChooser(startDir);
+		int result = fc.showOpenDialog(null);
+		File file = null;
+		
+		if(result == JFileChooser.APPROVE_OPTION) {
+			file = fc.getSelectedFile();
+		}
+		
+		return file;
+	
+	}
+	
 }

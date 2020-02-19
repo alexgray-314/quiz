@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 import com.jaguarplugins.quiz.App;
 
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -48,39 +50,22 @@ public class Editor {
 			
 			if(e.getSource().equals(App.getSaveBtn())) {
 				
-				File file = new File("quizzes/" + Handler.getTd().getResult() + ".txt");
+				File file = new File("quizzes/" + App.getEditorTitle().getText());
 				
 				if(!file.exists()) {
 
-					try {
-						
-						OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
-						out.append(App.getArea().getText());
-						out.flush();
-						out.close();
-						
-						App.getArea().clear();
-						App.getEditorStage().close();
-						
-						file.createNewFile();
-						
-						App.getSelector().getItems().clear();
-						App.getSelector().getItems().addAll(QFile.getFiles());
-						
-						Alert a = new Alert(AlertType.INFORMATION, Handler.getTd().getResult() + ".txt created");
-						a.setTitle("New File");
-						a.showAndWait();
-						
-					} catch (IOException e1) {
-						Alert a = new Alert(AlertType.ERROR, "I/O Exception\nFile could not be created");
-						a.setTitle("New File");
-						a.showAndWait();
-					}
+					saveAndClose(file);
 
 				} else {
-					Alert a = new Alert(AlertType.ERROR, "File already exists, please pick a new name or rename the existing file");
-					a.setTitle("New File");
-					a.showAndWait();
+					Alert a = new Alert(AlertType.CONFIRMATION, "Are you sure you want to overide " + App.getEditorTitle().getText());
+					Optional<ButtonType> result = a.showAndWait();
+					
+					if(result.get().equals(ButtonType.OK)) {
+						
+						saveAndClose(file);
+						
+					}
+					
 				}
 				
 			}
@@ -90,8 +75,8 @@ public class Editor {
 				App.getArea().clear();
 				App.getEditorStage().close();
 				
-				Alert a = new Alert(AlertType.WARNING, "File creation cancelled");
-				a.setTitle("New File");
+				Alert a = new Alert(AlertType.WARNING, "File edit/creation cancelled\nChanges lost");
+				a.setTitle("File Editor");
 				a.showAndWait();
 				
 			}
@@ -100,6 +85,35 @@ public class Editor {
 	
 	}
 
+	private void saveAndClose(File file) {
+		
+		try {
+			
+			OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
+			out.append(App.getArea().getText());
+			out.flush();
+			out.close();
+			
+			App.getArea().clear();
+			App.getEditorStage().close();
+			
+			file.createNewFile();
+			
+			App.getSelector().getItems().clear();
+			App.getSelector().getItems().addAll(QFile.getFiles());
+			
+			Alert a = new Alert(AlertType.INFORMATION, Handler.getTd().getResult() + ".txt saved");
+			a.setTitle("File Editor");
+			a.showAndWait();
+			
+		} catch (IOException e1) {
+			Alert a = new Alert(AlertType.ERROR, "I/O Exception\nFile could not be created");
+			a.setTitle("File Editor");
+			a.showAndWait();
+		}
+		
+	}
+	
 	public ButtonHandler getButtonHandler() {
 		return buttonHandler;
 	}

@@ -1,6 +1,12 @@
 package com.jaguarplugins.quiz.input;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -147,12 +153,56 @@ public class Handler {
 					a.showAndWait();
 					
 				}
+			
+			}
+			
+			if(e.getSource().equals(App.getEditBtn())) {
 				
-
+				File editFile = QFile.getEditFile();
 				
+				if(editFile != null) {
+					
+					try {
+						
+						BufferedReader reader = new BufferedReader(
+								   new InputStreamReader(
+						                      new FileInputStream(editFile), "UTF8"));
+						
+						App.getArea().clear();
+						String line = reader.readLine();
+						while (line != null) {
+							App.getArea().appendText(line + "\n");
+							line = reader.readLine();
+						}
+						App.getArea().deletePreviousChar();
+						reader.close();
+						
+						App.getEditorTitle().setText(editFile.getName());
+						App.getEditorStage().show();
+						
+					} catch (UnsupportedEncodingException e1) {
+						Alert a = new Alert(AlertType.ERROR, "Please change file encoding type to UTF-8 and try again");
+						a.showAndWait();
+					} catch (FileNotFoundException e1) {
+						Alert a = new Alert(AlertType.ERROR, "File could not be found");
+						a.showAndWait();
+					} catch (IOException e1) {
+						Alert a = new Alert(AlertType.ERROR, "I/O exception");
+						a.showAndWait();
+					}
+					
+					
+				
+				} else {
+					
+					Alert a = new Alert(AlertType.WARNING, "File edit cancelled");
+					a.setTitle("Edit File");
+					a.showAndWait();
+					
+				}
 				
 			}
-
+				
 		}
 
 	}
