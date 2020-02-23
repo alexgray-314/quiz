@@ -102,7 +102,7 @@ public class Editor {
 			App.getSelector().getItems().clear();
 			App.getSelector().getItems().addAll(QFile.getFiles());
 			
-			Alert a = new Alert(AlertType.INFORMATION, Handler.getTd().getResult() + ".txt saved");
+			Alert a = new Alert(AlertType.INFORMATION, App.getEditorTitle().getText() + " saved");
 			a.setTitle("File Editor");
 			a.showAndWait();
 			

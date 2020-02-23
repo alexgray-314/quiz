@@ -65,6 +65,8 @@ public class Handler {
 					App.getMistakes().getItems().clear();
 					App.getMistakes().getItems().add(Mistake.BLANK);
 					hint.delete(0, hint.length());
+					App.sendHeld(" ");
+					App.sendHint(" ");
 					questions = QFile.loadFile("quizzes/" + App.getSelector().getValue() + ".txt");
 					score = 0;
 					totalScore = questions.size();
@@ -281,10 +283,6 @@ public class Handler {
 
 	public KeyHandler getKeyHandler() {
 		return keyHandler;
-	}
-
-	public static TextInputDialog getTd() {
-		return td;
 	}
 
 }

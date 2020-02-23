@@ -1,5 +1,7 @@
 package com.jaguarplugins.quiz;
 
+import org.fxmisc.richtext.CodeArea;
+
 import com.jaguarplugins.quiz.input.Editor;
 import com.jaguarplugins.quiz.input.Handler;
 import com.jaguarplugins.quiz.input.QFile;
@@ -15,7 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -42,7 +43,7 @@ public class App extends Application {
 	private ChangeListener<? super Mistake> changeListener;
 
 	private static Stage editorStage;
-	private static TextArea area;
+	private static CodeArea area;
 	private static Button saveBtn, cancelBtn;
 	
 	private Image image = new Image("com/jaguarplugins/quiz/style/icon.jpg");
@@ -57,8 +58,6 @@ public class App extends Application {
 	public void start(Stage primaryStage) {
 
 		handler = new Handler();
-
-//		TODO tick and cross
 
 //		Centre Grid
 		text = new Text();
@@ -252,7 +251,7 @@ public class App extends Application {
 		title.setTextAlignment(TextAlignment.CENTER);
 		title.setId("bold-title");
 		
-		area = new TextArea();
+		area = new CodeArea();
 		area.setPadding(new Insets(2));
 		
 		saveBtn = new Button("Save and Close");
@@ -347,7 +346,7 @@ public class App extends Application {
 		return mistakes;
 	}
 	
-	public static TextArea getArea() {
+	public static CodeArea getArea() {
 		return area;
 	}
 
