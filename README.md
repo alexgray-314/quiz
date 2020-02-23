@@ -1,5 +1,5 @@
 # Quiz
-A simple quiz program designed for vocab revision
+A simple quiz program designed for vocab revision.
 Created 9th November 2019
 
 ### Features:
