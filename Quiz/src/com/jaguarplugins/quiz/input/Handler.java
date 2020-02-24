@@ -181,6 +181,7 @@ public class Handler {
 						
 						App.getEditorTitle().setText(editFile.getName());
 						App.getEditorStage().show();
+						App.formatEditor();
 						
 					} catch (UnsupportedEncodingException e1) {
 						Alert a = new Alert(AlertType.ERROR, "Please change file encoding type to UTF-8 and try again");

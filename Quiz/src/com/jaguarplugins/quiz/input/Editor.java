@@ -21,22 +21,23 @@ public class Editor {
 
 	private ButtonHandler buttonHandler;
 	private KeyHandler keyHandler;
-
+	
 	public Editor() {
 
 		buttonHandler = new ButtonHandler();
 		keyHandler = new KeyHandler();
-
+		
 	}
 	
 	private class KeyHandler implements EventHandler<KeyEvent> {
-
+		
 		@Override
 		public void handle(KeyEvent e) {
 			
-			if(e.getCode().equals(KeyCode.COMMA)) {
-							
-
+			if(e.getCode().equals(KeyCode.ENTER)) {
+				
+				App.formatEditor();
+				
 			}
 			
 		}
@@ -83,48 +84,14 @@ public class Editor {
 			
 			if(e.getSource().equals(App.getFormatBtn())) {
 				
-				int language = 0;
-//				0 = Foreign, 1 = English
-				
-				char[] contents = App.getArea().getText().toCharArray();
-				App.getArea().clear();
-				
-				for(char c : contents) {
-					
-					if(c == ':') {
-						
-						App.getArea().append(Character.toString(c), "colon");
-						language = 1;
-						
-					} else if(c == '\n') {
-						
-						App.getArea().appendText("\n");
-						language = 0;
-						
-					} else if(c == ',') {
-						
-						App.getArea().append(Character.toString(c), "comma");
-						
-					} else if(language == 0) {
-						
-						App.getArea().append(Character.toString(c), "foreign");
-						
-					} else if(language == 1) {
-						
-						App.getArea().append(Character.toString(c), "english");
-						
-					} else {
-						App.getArea().appendText(Character.toString(c));
-					}
-					
-				}
+				App.formatEditor();
 				
 			}
 			
 		}
 	
 	}
-
+	
 	private void saveAndClose(File file) {
 		
 		try {

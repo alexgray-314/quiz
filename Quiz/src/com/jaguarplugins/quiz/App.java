@@ -369,6 +369,46 @@ public class App extends Application {
 	public static Button getFormatBtn() {
 		return formatBtn;
 	}
+	
+	public static void formatEditor() {
+		
+		int language = 0;
+//		0 = Foreign, 1 = English
+		
+		char[] contents = App.getArea().getText().toCharArray();
+		area.clear();
+		
+		for(char c : contents) {
+			
+			if(c == ':') {
+				
+				area.append(Character.toString(c), "colon");
+				language = 1;
+				
+			} else if(c == '\n') {
+				
+				area.appendText("\n");
+				language = 0;
+				
+			} else if(c == ',') {
+				
+				area.append(Character.toString(c), "comma");
+				
+			} else if(language == 0) {
+				
+				area.append(Character.toString(c), "foreign");
+				
+			} else if(language == 1) {
+				
+				area.append(Character.toString(c), "english");
+				
+			} else {
+				area.appendText(Character.toString(c));
+			}
+			
+		}
+		
+	}
 
 	public static Button getEditBtn() {
 		return editBtn;
