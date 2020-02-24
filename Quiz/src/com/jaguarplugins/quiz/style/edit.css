@@ -2,3 +2,15 @@
 	-fx-font-size: 16pt;
 	-fx-alignment: CENTER;
 }
+.foreign{
+	-fx-fill: #7d0c1b;
+}
+.english{
+	-fx-fill: #363299;
+}
+.colon{
+	-fx-fill: #000000;
+}
+.comma{
+	-fx-fill: #000000;
+}

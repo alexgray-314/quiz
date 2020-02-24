@@ -1,24 +1,24 @@
 blogger:to blog
 des centaines:hundreds
-connaÓtre:to know someone
+conna√Ætre:to know someone
 croire:to believe
 devoir:to have to
 dire:to say
 en train de:in the process of
 envoyer:to send
 exprimer:to express
-faire confiance ‡:to trust
+faire confiance √†:to trust
 faire partie de:to belong to
 le forum discussion:internet forum
-gr‚ce ‡:thanks to
-isolÈ(e):isolated
+gr√¢ce √†:thanks to
+isol√©(e):isolated
 montrer:to show
 passer:to spend time
 passer des commentaires:to make comments
 permettre:to allow
-la rÈalitÈ:reality
+la r√©alit√©:reality
 remplir un formulaire:to fill in a form
-le rÈseau social:social media
+le r√©seau social:social media
 savoir:to know
 le sondage:survey
 le sujet:topic

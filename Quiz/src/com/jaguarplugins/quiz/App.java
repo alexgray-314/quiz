@@ -44,7 +44,7 @@ public class App extends Application {
 
 	private static Stage editorStage;
 	private static CodeArea area;
-	private static Button saveBtn, cancelBtn;
+	private static Button saveBtn, cancelBtn, formatBtn;
 	
 	private Image image = new Image("com/jaguarplugins/quiz/style/icon.jpg");
 	
@@ -262,7 +262,11 @@ public class App extends Application {
 		cancelBtn.setOnAction(editor.getButtonHandler());
 		cancelBtn.setPadding(new Insets(4));
 		
-		HBox buttonBox = new HBox(cancelBtn, saveBtn);
+		formatBtn = new Button("Format");
+		formatBtn.setOnAction(editor.getButtonHandler());
+		formatBtn.setPadding(new Insets(4));
+		
+		HBox buttonBox = new HBox(formatBtn, cancelBtn, saveBtn);
 		buttonBox.setAlignment(Pos.BOTTOM_RIGHT);
 		buttonBox.setPadding(new Insets(5));
 		buttonBox.setSpacing(20);
@@ -360,6 +364,10 @@ public class App extends Application {
 
 	public static Button getCancelBtn() {
 		return cancelBtn;
+	}
+	
+	public static Button getFormatBtn() {
+		return formatBtn;
 	}
 
 	public static Button getEditBtn() {
