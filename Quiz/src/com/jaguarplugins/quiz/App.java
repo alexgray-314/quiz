@@ -2,6 +2,7 @@ package com.jaguarplugins.quiz;
 
 import org.fxmisc.richtext.CodeArea;
 
+import com.jaguarplugins.quiz.input.AccButton;
 import com.jaguarplugins.quiz.input.Editor;
 import com.jaguarplugins.quiz.input.Handler;
 import com.jaguarplugins.quiz.input.QFile;
@@ -42,9 +43,19 @@ public class App extends Application {
 	private Handler handler;
 	private ChangeListener<? super Mistake> changeListener;
 
+//	Editor
 	private static Stage editorStage;
 	private static CodeArea area;
 	private static Button saveBtn, cancelBtn, formatBtn;
+	
+//	Accents
+	private static AccButton eAc, eGr, eCr;
+	private static AccButton aAc, aGr, aCr;
+	private static AccButton iCr, iUm;
+	private static AccButton oCr;
+	private static AccButton uCr;
+	private static AccButton cCd; //c cadilla
+	private static AccButton nTl; //n with tilda
 	
 	private Image image = new Image("com/jaguarplugins/quiz/style/icon.jpg");
 	
@@ -83,12 +94,32 @@ public class App extends Application {
 		okBtn.setPadding(new Insets(8));
 		okBtn.getStyleClass().add("outline");
 
-		HBox bottom = new HBox(input, okBtn);
+		HBox lowerBottom = new HBox(input, okBtn);
+		lowerBottom.setAlignment(Pos.CENTER);
+		lowerBottom.setSpacing(4);
+		lowerBottom.setPadding(new Insets(6));
+		
+		aAc = new AccButton("á");
+		aGr = new AccButton("à");
+		aCr = new AccButton("â");
+		eAc = new AccButton("é");
+		eGr = new AccButton("è");
+		eCr = new AccButton("ê");
+		iCr = new AccButton("î");
+		iUm = new AccButton("ï");
+		oCr = new AccButton("ô");
+		uCr = new AccButton("û");
+		cCd = new AccButton("ç");
+		nTl = new AccButton("ñ");
+		
+		HBox higherBottom = new HBox(aAc.getButton(), aGr.getButton(), aCr.getButton(), eAc.getButton(), eGr.getButton(), 
+				eCr.getButton(), iCr.getButton(), iUm.getButton(), oCr.getButton(), uCr.getButton(), cCd.getButton(), nTl.getButton());
+		higherBottom.setAlignment(Pos.CENTER);
+		higherBottom.setSpacing(4);
+		
+		VBox bottom = new VBox(higherBottom, lowerBottom);
 		bottom.setAlignment(Pos.CENTER);
-		bottom.setSpacing(4);
-		bottom.setPadding(new Insets(6));
-//		TODO ProgressBar
-
+		
 //		Right Pane		
 		helpBtn = new Button("Help");
 		helpBtn.setMinWidth(80);
