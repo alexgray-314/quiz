@@ -57,6 +57,8 @@ public class Handler {
 
 			if (e.getSource().equals(App.getLoadBtn())) {
 
+				App.getInput().clear();
+				
 				if (App.getSelector().getValue() == null) {
 					return;
 				}
@@ -218,6 +220,15 @@ public class Handler {
 
 			if (e.getCode().equals(KeyCode.ENTER)) {
 				nextQuestion();
+			}
+			
+			if (e.getCode().equals(KeyCode.ESCAPE)) {
+				if (App.getMainStage().getScene().equals(App.getScene())) {
+					App.getMainStage().setScene(App.getOptionScene());
+				} else {
+					App.getMainStage().setScene(App.getScene());
+				}
+				App.reloadOptions();
 			}
 
 		}

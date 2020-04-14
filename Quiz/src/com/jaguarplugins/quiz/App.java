@@ -15,6 +15,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -31,7 +32,8 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
-	private Scene scene;
+	private static Scene scene, optionScene;
+	private static Stage mainStage;
 	private int width = 800, height = 500;
 
 //	Used by handler
@@ -50,12 +52,17 @@ public class App extends Application {
 	
 //	Accents
 	private static AccButton eAc, eGr, eCr;
-	private static AccButton aAc, aGr, aCr;
-	private static AccButton iCr, iUm;
-	private static AccButton oCr;
-	private static AccButton uCr;
-	private static AccButton cCd; //c cadilla
-	private static AccButton nTl; //n with tilda
+	private static AccButton aAc, aGr, aCr, aUm;
+	private static AccButton iAc, iCr, iUm;
+	private static AccButton oAc, oCr, oUm;
+	private static AccButton uAc, uCr, uUm;
+	private static AccButton cCd;
+	private static AccButton nTl;
+	private static AccButton eSt; //weird B in German
+	private static HBox higherBottom;
+	
+//	Settings
+	private static CheckBox french, spanish, german;
 	
 	private Image image = new Image("com/jaguarplugins/quiz/style/icon.jpg");
 	
@@ -70,6 +77,8 @@ public class App extends Application {
 
 		handler = new Handler();
 
+		setupOptions();
+		
 //		Centre Grid
 		text = new Text();
 		text.getStyleClass().add("largelabel");
@@ -102,20 +111,28 @@ public class App extends Application {
 		aAc = new AccButton("á");
 		aGr = new AccButton("à");
 		aCr = new AccButton("â");
+		aUm = new AccButton("ä");
 		eAc = new AccButton("é");
 		eGr = new AccButton("è");
 		eCr = new AccButton("ê");
+		iAc = new AccButton("í");
 		iCr = new AccButton("î");
 		iUm = new AccButton("ï");
+		oAc = new AccButton("ó");
 		oCr = new AccButton("ô");
+		oUm = new AccButton("ö");
+		uAc = new AccButton("ú");
 		uCr = new AccButton("û");
+		uUm = new AccButton("ü");
 		cCd = new AccButton("ç");
 		nTl = new AccButton("ñ");
+		eSt = new AccButton("ß");
 		
-		HBox higherBottom = new HBox(aAc.getButton(), aGr.getButton(), aCr.getButton(), eAc.getButton(), eGr.getButton(), 
-				eCr.getButton(), iCr.getButton(), iUm.getButton(), oCr.getButton(), uCr.getButton(), cCd.getButton(), nTl.getButton());
+		higherBottom = new HBox();
 		higherBottom.setAlignment(Pos.CENTER);
 		higherBottom.setSpacing(4);
+		
+		reloadOptions();
 		
 		VBox bottom = new VBox(higherBottom, lowerBottom);
 		bottom.setAlignment(Pos.CENTER);
@@ -272,6 +289,8 @@ public class App extends Application {
 		primaryStage.setHeight(height);
 		primaryStage.show();
 		
+		mainStage = primaryStage;
+		
 	}
 
 	private void setupEditor() {
@@ -318,6 +337,62 @@ public class App extends Application {
 		editorStage.setWidth(width / 2);
 		editorStage.setHeight(height);
 		editorStage.toFront();
+		
+	}
+	
+	private void setupOptions() {
+		
+		Label accChars = new Label("Display Accented Characters");
+		accChars.setId("subtitle");
+		
+		french = new CheckBox("French (á à â é è ê î ï ô û ç)");
+		spanish = new CheckBox("Spanish (á é í ó ú ñ)");
+		german = new CheckBox("German (ä ö ü ß)");
+		
+		VBox items = new VBox(accChars, french, spanish, german);
+		
+		Label title = new Label("Settings:");
+		title.setId("title");
+		
+		BorderPane root = new BorderPane();
+		root.setTop(title);
+		root.setCenter(items);
+		
+		optionScene = new Scene(root);
+		optionScene.getStylesheets().add("com/jaguarplugins/quiz/style/option.css");
+		optionScene.setOnKeyReleased(handler.getKeyHandler());
+
+	}
+	
+	public static void reloadOptions() {
+		
+		higherBottom.getChildren().clear();
+		
+		if(french.isSelected() && spanish.isSelected() && german.isSelected()) {
+			higherBottom.getChildren().addAll(aAc.getButton(), aGr.getButton(), aCr.getButton(), aUm.getButton(), eAc.getButton(), eGr.getButton(), 
+				eCr.getButton(), iCr.getButton(), iUm.getButton(), oCr.getButton(), oUm.getButton(), uCr.getButton(), uUm.getButton(), cCd.getButton(), nTl.getButton(), eSt.getButton());
+		}
+		else if(french.isSelected() && spanish.isSelected()) {
+			higherBottom.getChildren().addAll(aAc.getButton(), aGr.getButton(), aCr.getButton(), eAc.getButton(), eGr.getButton(), 
+					eCr.getButton(), iAc.getButton(), iCr.getButton(), iUm.getButton(), oAc.getButton(), oCr.getButton(), uAc.getButton(), uCr.getButton(), cCd.getButton(), nTl.getButton());
+		}
+		else if(spanish.isSelected() && german.isSelected()) {
+			higherBottom.getChildren().addAll(aAc.getButton(), aUm.getButton(), eAc.getButton(), iAc.getButton(), oAc.getButton(), oUm.getButton(), uAc.getButton(), uUm.getButton(), nTl.getButton(), eSt.getButton());
+		}
+		else if(french.isSelected() && german.isSelected()) {
+			higherBottom.getChildren().addAll(aAc.getButton(), aGr.getButton(), aCr.getButton(), aUm.getButton(), eAc.getButton(), eGr.getButton(), 
+					eCr.getButton(), iCr.getButton(), iUm.getButton(), oCr.getButton(), oUm.getButton(), uCr.getButton(), uUm.getButton(), cCd.getButton(), eSt.getButton());
+		}
+		else if(spanish.isSelected()) {
+			higherBottom.getChildren().addAll(aAc.getButton(), eAc.getButton(), iAc.getButton(), oAc.getButton(), uAc.getButton(), nTl.getButton());
+		}
+		else if(german.isSelected()) {
+			higherBottom.getChildren().addAll(aUm.getButton(), oUm.getButton(), uUm.getButton(), eSt.getButton());
+		}
+		else if(french.isSelected()) {
+			higherBottom.getChildren().addAll(aAc.getButton(), aGr.getButton(), aCr.getButton(), eAc.getButton(), eGr.getButton(), 
+					eCr.getButton(), iCr.getButton(), iUm.getButton(), oCr.getButton(), uCr.getButton(), cCd.getButton());
+		}
 		
 	}
 	
@@ -379,6 +454,10 @@ public class App extends Application {
 
 	public static ListView<Mistake> getMistakes() {
 		return mistakes;
+	}
+	
+	public Scene getMainScene() {
+		return scene;
 	}
 	
 	public static CodeArea getArea() {
@@ -459,6 +538,18 @@ public class App extends Application {
 			return false;
 		}
 
+	}
+
+	public static Stage getMainStage() {
+		return mainStage;
+	}
+
+	public static Scene getScene() {
+		return scene;
+	}
+
+	public static Scene getOptionScene() {
+		return optionScene;
 	}
 
 }

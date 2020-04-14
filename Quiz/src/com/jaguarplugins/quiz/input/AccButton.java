@@ -14,10 +14,11 @@ public class AccButton {
 		button.setText(acc);
 		button.setId("acc");
 		button.setOnAction(e -> {
-			App.getInput().appendText(acc);
+			int pos = App.getInput().getCaretPosition();
+			App.getInput().insertText(pos, acc);
 			App.getInput().requestFocus();
 			App.getInput().deselect();
-			App.getInput().positionCaret(Integer.MAX_VALUE);
+			App.getInput().positionCaret(pos + 1);
 		});
 		
 	}
