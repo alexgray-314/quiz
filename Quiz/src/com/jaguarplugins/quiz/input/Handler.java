@@ -85,18 +85,20 @@ public class Handler {
 
 				try {
 					App.sendHeld(questions.get(q).getQuestion(!App.isEnglish())[0]);
-					score -= 1;
-					App.updateScore(score, totalScore);
-
+					if(App.getLoseHelp().isSelected()) {
+						score -= 1;
+						App.updateScore(score, totalScore);
+					}
+					if (App.getMistakes().getItems().get(0).equals(Mistake.BLANK)) {
+						App.getMistakes().getItems().clear();
+					}
+					App.addMistake("[HELP]", questions.get(q).getQuestion(!App.isEnglish())[0],
+							questions.get(q).getQuestion(App.isEnglish())[0]);
 				} catch (Exception ex) {
 					App.sendHeld("I can't help you");
 				}
 
-				if (App.getMistakes().getItems().get(0).equals(Mistake.BLANK)) {
-					App.getMistakes().getItems().clear();
-				}
-				App.addMistake("[HELP]", questions.get(q).getQuestion(!App.isEnglish())[0],
-						questions.get(q).getQuestion(App.isEnglish())[0]);
+				
 
 			}
 
@@ -105,26 +107,41 @@ public class Handler {
 				try {
 					hint.append(questions.get(q).getQuestion(!App.isEnglish())[0].charAt(hint.length()));
 					App.sendHint(hint.toString());
-				} catch (IndexOutOfBoundsException | NullPointerException e1) {
-//					Deliberately Nothing
+					if(App.getLoseHint().isSelected()) {
+						score -= 1;
+					}
+					App.updateScore(score, totalScore);
+				} catch (Exception e1) {
+//					e1.printStackTrace();
 				}
 
 			}
 
 			if (e.getSource().equals(App.getSkipButton())) {
 
-				hint.delete(0, hint.length());
-				App.sendHeld(" ");
-				App.sendHint(" ");
+				try {
+					
+					int newQ = (int) (Math.random() * questions.size());
+					while (newQ == q) {
+						newQ = (int) (Math.random() * questions.size());
+					}
+	
+					q = newQ;
+					App.setText(questions.get(q).getQuestion(App.isEnglish())[0]);
+				
+					if(App.getLoseSkip().isSelected()) {
+						score -= 1;
+					}
+					App.updateScore(score, totalScore);
+					
+					hint.delete(0, hint.length());
+					App.sendHeld(" ");
+					App.sendHint(" ");
 
-				int newQ = (int) (Math.random() * questions.size());
-				while (newQ == q) {
-					newQ = (int) (Math.random() * questions.size());
+				} catch (Exception ex) {
+//					ex.printStackTrace();
 				}
-
-				q = newQ;
-				App.setText(questions.get(q).getQuestion(App.isEnglish())[0]);
-
+					
 			}
 			
 			if(e.getSource().equals(App.getNewButton())) {
@@ -262,6 +279,11 @@ public class Handler {
 			} else {
 //				WRONG
 
+				if(App.getLoseMistake().isSelected()) {
+					score -= 1;
+				}
+				App.updateScore(score, totalScore);
+				
 				if (App.getMistakes().getItems().get(0).equals(Mistake.BLANK)) {
 					App.getMistakes().getItems().clear();
 				}

@@ -63,6 +63,7 @@ public class App extends Application {
 	
 //	Settings
 	private static CheckBox french, spanish, german;
+	private static CheckBox loseMistake, loseHelp, loseHint, loseSkip;
 	
 	private Image image = new Image("com/jaguarplugins/quiz/style/icon.jpg");
 	
@@ -349,7 +350,15 @@ public class App extends Application {
 		spanish = new CheckBox("Spanish (á é í ó ú ñ)");
 		german = new CheckBox("German (ä ö ü ß)");
 		
-		VBox items = new VBox(accChars, french, spanish, german);
+		Label score = new Label("Lose score for");
+		score.setId("subtitle");
+		
+		loseMistake = new CheckBox("Mistakes");
+		loseHelp = new CheckBox("Help");
+		loseHint = new CheckBox("Hint");
+		loseSkip = new CheckBox("Skip");
+		
+		VBox items = new VBox(accChars, french, spanish, german, score, loseMistake, loseHelp, loseHint, loseSkip);
 		
 		Label title = new Label("Settings:");
 		title.setId("title");
@@ -550,6 +559,22 @@ public class App extends Application {
 
 	public static Scene getOptionScene() {
 		return optionScene;
+	}
+
+	public static CheckBox getLoseMistake() {
+		return loseMistake;
+	}
+
+	public static CheckBox getLoseHelp() {
+		return loseHelp;
+	}
+
+	public static CheckBox getLoseHint() {
+		return loseHint;
+	}
+
+	public static CheckBox getLoseSkip() {
+		return loseSkip;
 	}
 
 }

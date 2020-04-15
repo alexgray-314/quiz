@@ -14,7 +14,9 @@ public class AccButton {
 		button.setText(acc);
 		button.setId("acc");
 		button.setOnAction(e -> {
+			App.getInput().appendText("");
 			int pos = App.getInput().getCaretPosition();
+			System.out.println(pos);
 			App.getInput().insertText(pos, acc);
 			App.getInput().requestFocus();
 			App.getInput().deselect();
