@@ -367,6 +367,10 @@ public class App extends Application {
 		root.setTop(title);
 		root.setCenter(items);
 		
+//		Default options
+		french.setSelected(true);
+		loseHelp.setSelected(true);
+		
 		optionScene = new Scene(root);
 		optionScene.getStylesheets().add("com/jaguarplugins/quiz/style/option.css");
 		optionScene.setOnKeyReleased(handler.getKeyHandler());

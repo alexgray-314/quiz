@@ -44,13 +44,14 @@ public class QFile {
 				out.close();
 				
 				out = new OutputStreamWriter(new FileOutputStream(readme), StandardCharsets.UTF_8);
-				out.append("To create a new quiz file, right click in the quizzes file and select New > Text Document (PC only) or click 'New File' in the program.\n\n"
-						+ "Then open the new file in any text editor. Each line represents a different question.\n"
+				out.append("To create a new quiz file, click 'New File' in the program.\n\n"
+						+ "Each line represents a different question.\n"
 						+ "Type all the possible ways of saying the word/phrase in the foreign language, separated by a ','.\n"
 						+ "Then type a ':' to show that you are now switching to the other language.\n"
 						+ "Finally type all the possible ways of saying the word/phrase in English, separated by a ','.\n"
 						+ "Repeat on a new line for each question.\n\n"
-						+ "DONOT surround ':' or ',' with spaces or leave any blank lines.\n\n"
+						+ "DONOT surround ':' or ',' with spaces or leave any blank lines.\n"
+						+ "Press 'Format' to highlight different languages in different colours\n\n"
 						+ "Please see example.txt for examples.\n\n"
 						+ "To run any quiz files, open the quiz.jar file and select the file you want from the drop down menu.");
 				out.flush();
