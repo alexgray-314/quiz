@@ -61,7 +61,7 @@ public class QFile {
 				b.showAndWait();
 			}
 			
-			Alert a = new Alert(AlertType.INFORMATION, "Quizzes file created.\nPlease put a quiz file into the folder and reload the program");
+			Alert a = new Alert(AlertType.INFORMATION, "Quizzes file created.\nPlease reload the program");
 			a.showAndWait();
 			System.exit(0);
 		}
