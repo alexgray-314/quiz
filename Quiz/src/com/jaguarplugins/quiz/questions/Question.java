@@ -1,5 +1,7 @@
 package com.jaguarplugins.quiz.questions;
 
+import java.util.ArrayList;
+
 public class Question {
 
 	private String[] question;
@@ -39,6 +41,22 @@ public class Question {
 
 		return false;
 
+	}
+	
+	public static boolean contains(ArrayList<Question> questions, Question question) {
+		
+		for (Question q : questions) {
+			
+			if (q.question[0].equalsIgnoreCase(question.question[0])) {
+				
+				return true;
+				
+			}
+			
+		}
+		
+		return false;
+			
 	}
 
 }

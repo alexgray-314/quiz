@@ -290,6 +290,8 @@ public class Handler {
 				App.addMistake(userInput, questions.get(q).getQuestion(!App.isEnglish())[0],
 						questions.get(q).getQuestion(App.isEnglish())[0]);
 
+				saveMistakeToFile(questions.get(q));
+				
 			}
 
 			App.getInput().clear();
@@ -302,6 +304,22 @@ public class Handler {
 
 	}
 
+	private void saveMistakeToFile(Question question) {
+		
+		ArrayList<Question> questions = new ArrayList<Question>();
+		questions = QFile.loadFile("data/mistakes.txt");
+		
+		if (questions != null) {
+			if (!Question.contains(questions, question)) {
+				questions.add(question);
+				QFile.saveMistake(question);
+			}
+		} else {
+			QFile.saveMistake(question);
+		}
+		
+	}
+	
 //	private boolean getAllPossible(boolean isEnglish) {
 //		
 ////		String[] answers = questions.get(q).getQuestion(!App.isEnglish()).split(",");
