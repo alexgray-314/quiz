@@ -1,3 +1,4 @@
 lego,legare,legi:read,choose,readyweed,choosywooze
 vouloir:to want to
 optimus:very good,excellent,the best
+connaître:to know someone

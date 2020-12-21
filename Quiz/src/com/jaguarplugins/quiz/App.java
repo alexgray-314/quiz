@@ -251,6 +251,7 @@ public class App extends Application {
 
 		selector = new ComboBox<String>();
 		selector.getItems().addAll(QFile.getFiles());
+		selector.getItems().add("-- MISTAKES --");
 		selector.setPrefWidth(150);
 		selector.getStyleClass().add("menubutton");
 

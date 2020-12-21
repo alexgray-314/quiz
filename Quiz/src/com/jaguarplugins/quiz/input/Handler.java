@@ -69,7 +69,11 @@ public class Handler {
 					hint.delete(0, hint.length());
 					App.sendHeld(" ");
 					App.sendHint(" ");
-					questions = QFile.loadFile("quizzes/" + App.getSelector().getValue() + ".txt");
+					if (App.getSelector().getValue() != "-- MISTAKES --") {
+						questions = QFile.loadFile("quizzes/" + App.getSelector().getValue() + ".txt");
+					} else {
+						questions = QFile.loadFile("data/mistakes.txt");
+					}
 					score = 0;
 					totalScore = questions.size();
 					App.updateScore(score, totalScore);
@@ -94,6 +98,9 @@ public class Handler {
 					}
 					App.addMistake("[HELP]", questions.get(q).getQuestion(!App.isEnglish())[0],
 							questions.get(q).getQuestion(App.isEnglish())[0]);
+					
+					saveMistakeToFile(questions.get(q));
+					
 				} catch (Exception ex) {
 					App.sendHeld("I can't help you");
 				}
@@ -289,8 +296,6 @@ public class Handler {
 				}
 				App.addMistake(userInput, questions.get(q).getQuestion(!App.isEnglish())[0],
 						questions.get(q).getQuestion(App.isEnglish())[0]);
-
-				saveMistakeToFile(questions.get(q));
 				
 			}
 
